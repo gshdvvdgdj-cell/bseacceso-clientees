@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Profesional de DJ con Traktor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(135deg, #000 0%, #1a0033 50%, #000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,0,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 4em;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease infinite;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(45deg, #ff00ff, #ff0080);
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px rgba(255,0,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 50px rgba(255,0,255,0.8);
+        }
+
+        .section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #1a0033 0%, #000 100%);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid #ff00ff;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,0,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(255,0,255,0.4);
+            border-color: #00ffff;
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #00ffff;
+        }
+
+        .feature-description {
+            color: #bbb;
+            line-height: 1.6;
+        }
+
+        .modules {
+            background: linear-gradient(180deg, #000 0%, #0a0015 50%, #000 100%);
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .module-item {
+            background: rgba(255,0,255,0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 4px solid #ff00ff;
+            transition: all 0.3s;
+        }
+
+        .module-item:hover {
+            background: rgba(255,0,255,0.1);
+            transform: translateX(10px);
+            border-left-color: #00ffff;
+        }
+
+        .module-number {
+            font-size: 2em;
+            color: #ff00ff;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .module-title {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .module-desc {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .equipment {
+            background: #000;
+        }
+
+        .equipment-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .equipment-item {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #1a0033, #000);
+            border-radius: 20px;
+            border: 2px solid #00ffff;
+            min-width: 250px;
+            transition: all 0.3s;
+        }
+
+        .equipment-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0,255,255,0.5);
+        }
+
+        .equipment-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px rgba(0,255,255,0.7));
+        }
+
+        .pricing {
+            background: linear-gradient(180deg, #000 0%, #1a0033 100%);
+        }
+
+        .price-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .price-card {
+            background: rgba(0,0,0,0.5);
+            padding: 50px 30px;
+            border-radius: 20px;
+            border: 2px solid #ff00ff;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .price-card.featured {
+            border-color: #00ffff;
+            transform: scale(1.05);
+        }
+
+        .price-card.featured::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00ffff;
+            color: #000;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+
+        .price-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(255,0,255,0.5);
+        }
+
+        .plan-name {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #00ffff;
+        }
+
+        .price {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .price span {
+            font-size: 0.4em;
+            color: #888;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .features-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .enroll-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .enroll-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255,0,255,0.7);
+        }
+
+        footer {
+            background: #000;
+            padding: 50px 20px;
+            text-align: center;
+            border-top: 2px solid #ff00ff;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 15px;
+            font-size: 2em;
+            color: #ff00ff;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #00ffff;
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5em;
+            }
+            
+            .section-title {
+                font-size: 2em;
+            }
+            
+            .price-card.featured {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo">🎧 TRAKTOR PRO</div>
+            <p class="subtitle">Conviértete en DJ Profesional con Traktor</p>
+            <a href="#pricing" class="cta-button">Inscríbete Ahora</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features-section">
+        <div class="container">
+            <h2 class="section-title">¿Por qué elegir este curso?</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🎚️</div>
+                    <h3 class="feature-title">Control Total</h3>
+                    <p class="feature-description">Domina cada función de Traktor Pro, desde lo básico hasta técnicas avanzadas de mezcla y efectos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎵</div>
+                    <h3 class="feature-title">Teoría Musical</h3>
+                    <p class="feature-description">Aprende beatmatching, phrasing, estructura musical y cómo leer la energía de la pista de baile.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Técnicas Profesionales</h3>
+                    <p class="feature-description">Efectos, loops, hot cues, remix decks y todas las herramientas que usan los DJs profesionales.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎤</div>
+                    <h3 class="feature-title">Performance Live</h3>
+                    <p class="feature-description">Desarrolla tu estilo único y aprende a conectar con tu audiencia en presentaciones en vivo.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Organización</h3>
+                    <p class="feature-description">Gestión profesional de tu biblioteca musical, playlists inteligentes y preparación de sets.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h3 class="feature-title">Certificación</h3>
+                    <p class="feature-description">Obtén tu certificado profesional y accede a nuestra red de oportunidades laborales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modules Section -->
+    <section class="section modules">
+        <div class="container">
+            <h2 class="section-title">Contenido del Curso</h2>
+            <div class="module-grid">
+                <div class="module-item">
+                    <div class="module-number">01</div>
+                    <h3 class="module-title">Introducción a Traktor</h3>
+                    <p class="module-desc">Interface, configuración inicial, preferencias y optimización del software.</p>
+                </div>
+                <div class="module-item">
+                    <div class="module-number">02</div>
+                    <h3 class="module-title">Fundamentos del DJing</h3>
+                    <p class="module-desc">Beatmatching manual, sincronización, tempo, y estructura de canciones.</p>
+                </div>
+                <div class="module-item">
+                    <div class="module-number">03</div>
+                    <h3 class="module-title">Mezcla Básica</h3>
+                    <p class="module-desc">Transiciones, EQ, crossfader, y técnicas de mezcla armónica.</p>
+                </div>
+                <div class="module-item">
+                    <div class="module-number">04</div>
+                    <h3 class="module-title">Hot Cues & Loops</h3>
+                    <p class="module-desc">Configuración y uso creativo de cue points, loops y beat jumping.</p>
+                </div>
+                <div class="module-item">
+                    <div class="module-number">05</div>
+                    <h3 class="module-title">Efectos FX</h3>
+                    <p class="module-desc">Dominio de efectos: delay, reverb, filter, flanger y combinaciones creativas.</p>
+                </div>
+                <div class="module-item">
+                    <div class="module-number">06</div>
+                    <h3 class="module-title">Remix Decks</h3>
+                    <p class="module-desc">Uso avanzado de remix decks para crear mashups y ediciones en vivo.</p>
+                </div>
+                <div class="module-item">
+                    <div class="module-number">07</div>
+                    <h3 class="module-title">Biblioteca Musical</h3>
+                    <p class="module-desc">Organización, metadata, playlists inteligentes y gestión profesional.</p>
+                </div>
+                <div class="module-item">
+                    <div class="module-number">08</div>
+                    <h3 class="module-title">Grabación & Streaming</h3>
+                    <p class="module-desc">Setup para streaming en vivo, grabación de sets y post-producción.</p>
+                </div>
+                <div class="module-item">
+                    <div class="module-number">09</div>
+                    <h3 class="module-title">Hardware & Controllers</h3>
+                    <p class="module-desc">Configuración de controladores, mapeos personalizados y optimización.</p>
+                </div>
+                <div class="module-item">
+                    <div class="module-number">10</div>
+                    <h3 class="module-title">Carrera Profesional</h3>
+                    <p class="module-desc">Marketing, branding, networking y cómo conseguir tus primeros gigs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Section -->
+    <section class="section equipment">
+        <div class="container">
+            <h2 class="section-title">Compatible con tu equipo</h2>
+            <div class="equipment-showcase">
+                <div class="equipment-item">
+                    <div class="equipment-icon">🎛️</div>
+                    <h3>Kontrol S4</h3>
+                    <p>Controller profesional de 4 canales</p>
+                </div>
+                <div class="equipment-item">
+                    <div class="equipment-icon">🎚️</div>
+                    <h3>Kontrol S2</h3>
+                    <p>Portátil y potente</p>
+                </div>
+                <div class="equipment-item">
+                    <div class="equipment-icon">💿</div>
+                    <h3>CDJs + DVS</h3>
+                    <p>Control de vinilo digital</p>
+                </div>
+                <div class="equipment-item">
+                    <div class="equipment-icon">💻</div>
+                    <h3>Solo Laptop</h3>
+                    <p>Ideal para empezar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Planes de Inversión</h2>
+            <div class="price-cards">
+                <div class="price-card">
+                    <h3 class="plan-name">BÁSICO</h3>
+                    <div class="price">$299<span>/mes</span></div>
+                    <ul class="features-list">
+                        <li>✓ Acceso a módulos 1-5</li>
+                        <li>✓ Videos HD on-demand</li>
+                        <li>✓ Soporte por email</li>
+                        <li>✓ Certificado básico</li>
+                        <li>✓ Recursos descargables</li>
+                    </ul>
+                    <a href="#" class="enroll-btn">Comenzar</a>
+                </div>
+                
+                <div class="price-card featured">
+                    <h3 class="plan-name">PRO</h3>
+                    <div class="price">$499<span>/mes</span></div>
+                    <ul class="features-list">
+                        <li>✓ Todos los módulos (1-10)</li>
+                        <li>✓ Clases en vivo semanales</li>
+                        <li>✓ Mentoría personalizada</li>
+                        <li>✓ Certificación profesional</li>
+                        <li>✓ Acceso comunidad premium</li>
+                        <li>✓ Mapeos exclusivos</li>
+                    </ul>
+                    <a href="#" class="enroll-btn">Elegir Pro</a>
+                </div>
+                
+                <div class="price-card">
+                    <h3 class="plan-name">ELITE</h3>
+                    <div class="price">$899<span>/mes</span></div>
+                    <ul class="features-list">
+                        <li>✓ Todo incluido Pro +</li>
+                        <li>✓ Sesiones 1-a-1 semanales</li>
+                        <li>✓ Revisión de sets grabados</li>
+                        <li>✓ Networking con DJs pros</li>
+                        <li>✓ Oportunidades de gigs</li>
+                        <li>✓ Masterclasses exclusivas</li>
+                        <li>✓ Soporte prioritario 24/7</li>
+                    </ul>
+                    <a href="#" class="enroll-btn">Ir Elite</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3 style="margin-bottom: 20px;">¿Listo para comenzar tu carrera como DJ?</h3>
+            <p style="color: #888; margin-bottom: 30px;">Únete a miles de estudiantes que ya están mezclando como profesionales</p>
+            <a href="#pricing" class="cta-button">Inscríbete Ahora</a>
+            <div class="social-links">
+                <a href="#">📸</a>
+                <a href="#">🎵</a>
+                <a href="#">▶️</a>
+                <a href="#">💬</a>
+            </div>
+            <p style="margin-top: 40px; color: #555;">© 2024 Traktor Pro Academy. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
