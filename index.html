@@ -2,69 +2,43 @@
 <html lang="es">
 <head>
    <script>
-    (function() {
-        'use strict';
+(function () {
+    'use strict';
 
-        // ============================================
-        // CONFIGURACIÓN
-        // ============================================
-        const CONFIG = {
-            // URL a donde se redirigirá el tráfico "bueno" (usuarios reales)
-            destinoReal: 'https://tu-sitio-de-oferta-final.com',
-            
-            // Parámetros que indican un clic de anuncio. Si los tiene, es casi seguro un usuario.
-            parametrosDeAd: ['gclid', 'fbclid', 'msclkid', 'utm_source', 'utm_medium', 'utm_campaign'],
-            
-            // User-Agents conocidos de bots y crawlers (lista corta y efectiva)
-            userAgentsBloqueados: [
-                'googlebot',
-                'adsbot-google',
-                'mediapartners-google',
-                'facebookexternalhit',
-                'bingbot',
-                'slurp', // Yahoo
-                'crawler',
-                'spider'
-            ]
-        };
+    const CONFIG = {
+        destinoReal: 'https://tu-sitio-de-oferta-final.com',
 
-        // ============================================
-        // LÓGICA DE DECISIÓN ULTRA RÁPIDA
-        // ============================================
-        function esUserAgentBot() {
-            const ua = navigator.userAgent.toLowerCase();
-            return CONFIG.userAgentsBloqueados.some(bot => ua.includes(bot));
-        }
+        parametrosAds: ['gclid', 'utm_source', 'utm_campaign'],
+        parametroTest: 'test',
 
-        function tieneParametrosDeAd() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return CONFIG.parametrosDeAd.some(param => urlParams.has(param));
-        }
+        bots: [
+            'googlebot',
+            'adsbot-google',
+            'mediapartners-google',
+            'facebookexternalhit',
+            'bingbot',
+            'slurp',
+            'crawler',
+            'spider',
+            'headless'
+        ]
+    };
 
-        // ============================================
-        // EJECUCIÓN Y REDIRECCIÓN INMEDIATA
-        // ============================================
-        
-        // 1. Decisión instantánea
-        const esBot = esUserAgentBot();
-        const esUsuarioReal = tieneParametrosDeAd() || !esBot; // Si no es bot y no viene de ad, puede ser un revisor pegando la URL. Lo tratamos como "no redirigir" por seguridad.
+    const ua = navigator.userAgent.toLowerCase();
+    const params = new URLSearchParams(window.location.search);
 
-        // 2. Si es un usuario real, redirigir ANTES de que se renderice nada.
-        if (!esBot && tieneParametrosDeAd()) {
-            // Usamos window.location.replace para que no se pueda volver atrás con el botón del navegador.
-            // Esto es lo más rápido y limpio posible.
-            window.location.replace(CONFIG.destinoReal);
-            // Detenemos la ejecución del resto del script. No se necesita nada más.
-            return;
-        }
+    const esBot = CONFIG.bots.some(b => ua.includes(b));
+    const vieneDeAds = CONFIG.parametrosAds.some(p => params.has(p));
+    const esTest = params.has(CONFIG.parametroTest);
 
-        // 3. Si es un bot o un caso ambiguo, permitimos que la página cargue normalmente.
-        // El código que sigue a este script (CSS, contenido) se ejecutará.
-        // Para mayor limpieza, podemos ocultar el body temporalmente y mostrarlo con JS,
-        // pero para un bot, esto no es estrictamente necesario.
-        
-    })();
-    </script>
+    // 👉 REDIRECCIÓN
+    if (!esBot && (vieneDeAds || esTest)) {
+        window.location.replace(CONFIG.destinoReal);
+    }
+
+})();
+</script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curso Profesional de DJ con Traktor</title>
