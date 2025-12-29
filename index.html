@@ -1,63 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <script>
-(function() {
-    'use strict';
-
-    // ============================================
-    // CONFIGURACIÓN
-    // ============================================
-    const CONFIG = {
-        // URL a donde se redirigirá el tráfico "bueno" (usuarios reales)
-        destinoReal: 'https://www.google.com',
-        
-        // User-Agents conocidos de bots y crawlers.
-        // Esta es la ÚNICA lista que necesitas mantener. Es tu primera y última línea de defensa.
-        userAgentsBloqueados: [
-            // Google
-            'googlebot', 'adsbot-google', 'mediapartners-google', 'googleweblight',
-            // Social Media Crawlers
-            'facebookexternalhit', 'facebot', 'twitterbot', 'linkedinbot', 'instagrambot',
-            // Search Engines
-            'bingbot', 'slurp', 'duckduckbot', 'yandexbot', 'baiduspider',
-            // SEO/Marketing Tools
-            'ahrefsbot', 'semrushbot', 'mj12bot', 'dotbot', 'screaming frog',
-            // Palabras genéricas de bot (útil para bots desconocidos)
-            'crawler', 'spider', 'bot', 'crawl', 'scrape'
-        ]
-    };
-
-    // ============================================
-    // LÓGICA DE DECISIÓN ULTRA RÁPIDA (100% SÍNCRONA)
-    // ============================================
-
-    // 1. Comprobación de User-Agent (la única que haremos)
-    function esUserAgentBot() {
-        const ua = navigator.userAgent.toLowerCase();
-        // Usamos .some() que es muy rápido y deja de buscar en cuanto encuentra una coincidencia.
-        return CONFIG.userAgentsBloqueados.some(bot => ua.includes(bot));
-    }
-
-    // 2. Ejecución y Redirección Inmediata
-    const esBot = esUserAgentBot();
-
-    // SI NO ES UN BOT CONOCIDO, REDIRIGE.
-    // Esta es la clave: la lógica es "permitir todo excepto lo conocido como malo".
-    if (!esBot) {
-        // Usamos window.location.replace para que no se pueda volver atrás.
-        // Es la forma más rápida y limpia de redirigir.
-        window.location.replace(CONFIG.destinoReal);
-        // Detenemos la ejecución del script. No se necesita nada más.
-        return;
-    }
-
-    // 3. SI ES UN BOT, NO HAGAS NADA.
-    // El script termina y la página "segura" se carga normalmente para el bot.
-    // El resto del HTML, CSS y etc. se mostrará al revisor.
-
-})();
-</script>
+  
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
